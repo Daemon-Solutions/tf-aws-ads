@@ -1,5 +1,9 @@
-tf-aws-ads
+## tf-aws-ads
 This module is for creating an AWS Directory Service.
+
+
+-----
+
 
 Usage
 
@@ -33,3 +37,5 @@ id - The directory identifier.
 access_url - The access URL for the directory, such as http://alias.awsapps.com.
 
 dns_ip_addresses - A list of IP addresses of the DNS servers for the directory or connector.
+
+
