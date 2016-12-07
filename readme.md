@@ -1,36 +1,46 @@
 ## tf-aws-ads
-This module is for creating an AWS Directory Service.
-
 
 -----
 
+This module is for creating an AWS Directory Service.
 
-Usage
+-----
+
+### Usage
+
+-----
 
 Declare a module in your Terraform file, for example:
 
-module "tf-aws-ads" {
-  source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
+module "ads" {
+    source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
 
+    domain_name = "something.com"
+    domain_password = "S0meth1ng!"
+    ad_type = "SimpleAD"
+    ad_size = "Small"
+
+    vpc_id = "vpc-xxxxxxxx"
+    subnet_ids = "subnet-01234567,subnet-10234567"
 }
 
-Required Variables
+### Required Variables
 
 domain_name - the fully qualified name of the directory.
 
 domain_password - the password for the directory administrator or connector user.
 
-ad_size - the size of AD you require, small or large are accepted values - default is small.
+ad_size - the size of AD you require, small or large are accepted values - *(default is small)*
 
 vpc_id - the ID of the VPC you want the AD created in.
 
-subnet_ids - the subnet ID's you want your AD created in.
+subnet_ids - the two subnet ID's you want your AD created in - *(generally two of your private subnets)*
 
-Optional Variables
+### Optional Variables
 
-ad_type - The directory type (SimpleAD or MicrosoftAD are accepted values). Defaults to SimpleAD.
+ad_type - The directory type (SimpleAD or MicrosoftAD are accepted values) - *(defaults to SimpleAD)*
 
-Outputs
+### Outputs
 
 id - The directory identifier.
 
