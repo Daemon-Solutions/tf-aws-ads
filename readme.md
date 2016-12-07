@@ -12,17 +12,18 @@ This module is for creating an AWS Directory Service.
 
 Declare a module in your Terraform file, for example:
 
-module "ads" {
-    source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
 
-    domain_name = "something.com"
-    domain_password = "S0meth1ng!"
-    ad_type = "SimpleAD"
-    ad_size = "Small"
+    module "ads" {
+        source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
 
-    vpc_id = "vpc-xxxxxxxx"
-    subnet_ids = "subnet-01234567,subnet-10234567"
-}
+        domain_name = "something.com"
+        domain_password = "S0meth1ng!"
+        ad_type = "SimpleAD"
+        ad_size = "Small"
+
+        vpc_id = "vpc-xxxxxxxx"
+        subnet_ids = "subnet-01234567,subnet-10234567"
+        }
 
 ### Required Variables
 
