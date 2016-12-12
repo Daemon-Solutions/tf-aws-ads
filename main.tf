@@ -8,6 +8,6 @@ resource "aws_directory_service_directory" "ads" {
 
   vpc_settings {
     vpc_id = "${var.vpc_id}"
-    subnet_ids = ["${split(",",var.subnet_ids)}"]
+    subnet_ids = ["${var.subnet_ids}"]
   }
 }
