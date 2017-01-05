@@ -4,10 +4,6 @@ variable "customer" {}
 
 variable "envname" {}
 
-variable "vpc_id" {}
-
-variable "vpc_cidr" {}
-
 variable "domain_name" {}
 
 variable "domain_password" {}
