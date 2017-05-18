@@ -99,15 +99,6 @@ resource "aws_security_group_rule" "egress-389-389-UDP" {
   cidr_blocks       = ["${element(aws_directory_service_directory.ads.dns_ip_addresses,0)}/32", "${element(aws_directory_service_directory.ads.dns_ip_addresses,1)}/32"]
 }
 
-resource "aws_security_group_rule" "egress-443-443-TCP" {
-  type              = "egress"
-  protocol          = "TCP"
-  from_port         = "443"
-  to_port           = "443"
-  security_group_id = "${aws_security_group.ads_sg.id}"
-  cidr_blocks       = ["0.0.0.0/0"]
-}
-
 resource "aws_security_group_rule" "egress-445-445-TCP" {
   type              = "egress"
   protocol          = "TCP"
