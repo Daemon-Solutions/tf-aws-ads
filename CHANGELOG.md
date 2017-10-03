@@ -44,7 +44,7 @@ IMPROVEMENTS:
 * Changed `subnet_ids` to use type `list`, removed `split()`
 
 
-## v0.0.1 (December 06, 2016)
+## 0.0.1 (December 06, 2016)
 
 Initial version
 
