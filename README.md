@@ -10,7 +10,7 @@ Usage
 
 ```js
 
-module "ads" {
+module "SimpleAD" {
     source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
 
     domain_name = "something.com"
@@ -21,6 +21,20 @@ module "ads" {
     vpc_id = "vpc-xxxxxxxx"
     subnet_ids = "subnet-01234567,subnet-10234567"
 }
+
+module "ADConnector" {
+    source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
+
+    domain_name = "something.com"
+    domain_password = "S0meth1ng!"
+    ad_type = "SimpleAD"
+    ad_size = "Small"
+
+    vpc_id = "vpc-xxxxxxxx"
+    subnet_ids = "subnet-01234567,subnet-10234567"
+}
+
+
 
 ```
 
@@ -39,7 +53,7 @@ _Variables marked with [*] are mandatory._
 
  - `subnet_ids` - The two subnet ID's you want your AD created in. This would generally be two of your private subnets. [*]
 
- - `ad_type` - The directory type, `SimpleAD` or `MicrosoftAD` are accepted values. [Default: "SimpleAD"]
+ - `ad_type` - The directory type, `SimpleAD` `MicrosoftAD` and `ADConnector` are accepted values. [Default: "SimpleAD"]
 
 <br />
 
