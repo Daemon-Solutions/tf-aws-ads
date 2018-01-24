@@ -29,7 +29,7 @@ variable "ad_type" {
 variable "ad_size" {
   description = "The size of the directory (Small or Large are accepted values)"
   type = "string"
-  default = "small"
+  default = "Small"
 }
 
 variable "subnet_ids" {
