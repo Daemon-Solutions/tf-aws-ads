@@ -1,19 +1,29 @@
 # ads
-
 resource "aws_directory_service_directory" "ads" {
   name     = "${var.domain_name}"
   password = "${var.domain_password}"
   size     = "${var.ad_size}"
   type     = "${var.ad_type}"
+  edition  = "${var.ad_edition}"
 
   vpc_settings {
     vpc_id     = "${data.aws_subnet.private.vpc_id}"
     subnet_ids = ["${var.subnet_ids}"]
   }
+
+  tags = "${var.tags}"
+}
+
+resource "null_resource" "share_ads" {
+  count = "${var.share_ads ? 1 : 0}"
+
+  provisioner "local-exec" {
+    command = "python3 ${path.module}/share_ads.py -r ${data.aws_region.current.name} -i ${aws_directory_service_directory.ads.id} -t ${join(",", var.share_ads_targets)}"
+  }
 }
 
 resource "aws_security_group" "ads_sg" {
-  name        = "${var.customer}-${var.envname}-ads"
+  name        = "${var.name_prefix}-ads"
   vpc_id      = "${data.aws_subnet.private.vpc_id}"
   description = "ads security group"
 }

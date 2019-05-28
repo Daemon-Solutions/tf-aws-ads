@@ -11,15 +11,25 @@ Usage
 ```js
 
 module "ads" {
-    source = "git::ssh://git@gogs.bashton.net/Bashton-Terraform-Modules/tf-aws-ads.git
+  source = "../modules/tf-aws-ads"
+  	
+  name_prefix       = "${var.envtype}-${var.envname}"
+  domain_name       = "${var.ad_domain_name}"
+  domain_password   = "${aws_ssm_parameter.domain_admin_password.value}"
+  ad_edition        = "${var.ad_edition}"
+  ad_type           = "${var.ad_type}"
+  subnet_ids        = ["${element(module.vpc.private_subnets,0)}", "${element(module.vpc.private_subnets,1)}"]
+  
+  share_ads         = true
+  share_ads_targets = "${values(var.aws_accounts)}"
 
-    domain_name = "something.com"
-    domain_password = "S0meth1ng!"
-    ad_type = "SimpleAD"
-    ad_size = "Small"
-
-    vpc_id = "vpc-xxxxxxxx"
-    subnet_ids = "subnet-01234567,subnet-10234567"
+  tags = "${merge(
+            local.common_tags,
+            map(
+              "Name", "${var.envtype}-${var.envname}-ads",
+              "Service", "directory service"
+            )
+          )}" 
 }
 
 ```
@@ -40,6 +50,12 @@ _Variables marked with [*] are mandatory._
  - `subnet_ids` - The two subnet ID's you want your AD created in. This would generally be two of your private subnets. [*]
 
  - `ad_type` - The directory type, `SimpleAD` or `MicrosoftAD` are accepted values. [Default: "SimpleAD"]
+
+ - `ad_edition` - The MicrosoftAD edition (Standard or Enterprise). Applies to MicrosoftAD type only.
+
+ - `share_ads` - boolean indicating whether to share AWS Directory Services [Default: "false"]
+
+ - `share_ads_targets` - Share AWS Directory Services with target AWS accounts [Default: ""]
 
 <br />
 
