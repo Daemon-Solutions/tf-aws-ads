@@ -1,41 +1,47 @@
-tf-aws-ads
+# tf-aws-ads
 -----
 
 This module is for creating an AWS Directory Service.
 
 <br />
 
-Usage
+## Terraform Version Compatibility
+Module Version|Terraform Version
+---|---
+v3.0.0|0.12.x
+v2.0.0|0.11.x
+
+## Usage
 -----
 
 ```js
 
 module "ads" {
   source = "../modules/tf-aws-ads"
-  	
-  name_prefix       = "${var.envtype}-${var.envname}"
-  domain_name       = "${var.ad_domain_name}"
-  domain_password   = "${aws_ssm_parameter.domain_admin_password.value}"
-  ad_edition        = "${var.ad_edition}"
-  ad_type           = "${var.ad_type}"
-  subnet_ids        = ["${element(module.vpc.private_subnets,0)}", "${element(module.vpc.private_subnets,1)}"]
-  
-  share_ads         = true
-  share_ads_targets = "${values(var.aws_accounts)}"
 
-  tags = "${merge(
+  name_prefix       = "${var.envtype}-${var.envname}"
+  domain_name       = var.ad_domain_name
+  domain_password   = aws_ssm_parameter.domain_admin_password.value
+  ad_edition        = var.ad_edition
+  ad_type           = var.ad_type
+  subnet_ids        = [element(module.vpc.private_subnets,0), element(module.vpc.private_subnets,1)]
+
+  share_ads         = true
+  share_ads_targets = values(var.aws_accounts)
+
+  tags = merge(
             local.common_tags,
             map(
               "Name", "${var.envtype}-${var.envname}-ads",
               "Service", "directory service"
             )
-          )}" 
+          )
 }
 
 ```
 
 
-Variables
+## Variables
 ---------
 _Variables marked with [*] are mandatory._
 
@@ -59,7 +65,7 @@ _Variables marked with [*] are mandatory._
 
 <br />
 
-Outputs
+## Outputs
 ---------
  - `id` - The directory identifier.
 
